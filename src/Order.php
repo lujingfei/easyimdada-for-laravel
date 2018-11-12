@@ -9,14 +9,12 @@ class Order{
     public function addOrder($params){
         $uri = UriConfig::ORDER_ADD_URI;
         $dada_client = new DataRequestClient($uri, $params);
-        $resp = $dada_client->makeRequest();
-        return json_encode($resp);
+        return $dada_client->makeRequest();
     }
 
     public function reAddOrder($params){
         $uri = UriConfig::ORDER_ADD_URI;
         $dada_client = new DataRequestClient($uri, $params);
-        $resp = $dada_client->makeRequest();
-        return json_encode($resp);
+        return $dada_client->makeRequest();
     }
 }

@@ -9,6 +9,6 @@ class City{
         $uri = UriConfig::CITY_ORDER_URI;
         $params = '';
         $dada_client = new DataRequestClient($uri, $params);
-        return $resp = $dada_client->makeRequest();
+        return $dada_client->makeRequest();
     }
 }

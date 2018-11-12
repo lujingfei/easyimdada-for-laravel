@@ -87,7 +87,7 @@ class DataRequestClient{
         curl_setopt($curl, CURLOPT_TIMEOUT, 3);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $resp = curl_exec($curl);
-        var_dump( curl_error($curl) );//如果在执行curl的过程中出现异常，可以打开此开关查看异常内容。
+        //var_dump( curl_error($curl) );//如果在执行curl的过程中出现异常，可以打开此开关查看异常内容。
         $info = curl_getinfo($curl);
         curl_close($curl);
         if (isset($info['http_code']) && $info['http_code'] == 200) {
