@@ -7,7 +7,7 @@
  * http://newopen.imdada.cn/#/development/file/add?_k=5f4vjj
  */
 
-namespace Geoff\EasyImdada\Models;
+namespace Geoff\EasyImdada\Params;
 
 class Shop
 {

@@ -6,7 +6,7 @@
  * Time: 12:10 PM
  * http://newopen.imdada.cn/#/development/file/add?_k=5f4vjj
  */
-namespace Geoff\EasyImdada\Models;
+namespace Geoff\EasyImdada\Params;
 
 class Order{
     public $shop_no;
