@@ -1,0 +1,15 @@
+{
+    "name": "geoff/easyimdada-for-laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Geoff Lu",
+            "email": "44568889@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Geoff\\EasyImdada\\": "src/"
+        }
+    }
+}
