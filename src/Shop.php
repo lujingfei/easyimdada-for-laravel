@@ -25,7 +25,7 @@ class Shop
     public function detail($origin_shop_id)
     {
         $uri = '/api/shop/detail';
-        $parms = '{"origin_shop_id":"' . $origin_shop_id . '""}';
+        $parms = '{"origin_shop_id":"' . $origin_shop_id . '"}';
         $dada_client = new DataRequestClient($uri, $parms);
         return $dada_client->makeRequest();
     }
