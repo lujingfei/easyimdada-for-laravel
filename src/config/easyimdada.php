@@ -42,6 +42,7 @@ return [
         'order' => [
             'addOrder' => '/api/order/addOrder',
             'reAddOrder' => '/api/order/reAddOrder',
+            'query' => '/api/order/status/query',
             'accept' => '/api/order/accept',
             'fetch' => '/api/order/fetch',
             'finish' => '/api/order/finish',
