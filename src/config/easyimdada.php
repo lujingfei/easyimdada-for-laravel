@@ -29,4 +29,24 @@ return [
      * host
      */
     'host' => env('IMDADA_HOST', 'http://newopen.qa.imdada.cn'),
+
+    'uri' => [
+        'city' =>[
+            'list' => '/api/cityCode/list'
+        ],
+        'shop' =>[
+            'add' => '/api/shop/add',
+            'update' => '/api/shop/update',
+            'detail' => '/api/shop/detail'
+        ],
+        'order' => [
+            'addOrder' => '/api/order/addOrder',
+            'reAddOrder' => '/api/order/reAddOrder',
+            'accept' => '/api/order/accept',
+            'fetch' => '/api/order/fetch',
+            'finish' => '/api/order/finish',
+        ],
+    ],
+
+    'notify_url' => env('IMDADA_NOTIFY_URL',''),
 ];

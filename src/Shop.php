@@ -2,31 +2,33 @@
 
 namespace Geoff\EasyImdada;
 
-use Geoff\EasyImdada\Data\UriConfig;
-use Geoff\EasyImdada\Kernel\DataRequestClient;
+use Geoff\EasyImdada\Kernel\ImdadaClient;
 
 class Shop
 {
 
     public function add($params)
     {
-        $uri = UriConfig::SHOP_ADD_URI;
-        $dada_client = new DataRequestClient($uri, $params);
-        return $dada_client->makeRequest();
+        $uri = config('easyimdada.uri.shop.add');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
     }
 
     public function update($params)
     {
-        $uri = UriConfig::SHOP_UPDATE_URI;
-        $dada_client = new DataRequestClient($uri, $params);
-        return $dada_client->makeRequest();
+        $uri = config('easyimdada.uri.shop.update');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
     }
 
     public function detail($origin_shop_id)
     {
-        $uri = '/api/shop/detail';
-        $parms = '{"origin_shop_id":"' . $origin_shop_id . '"}';
-        $dada_client = new DataRequestClient($uri, $parms);
-        return $dada_client->makeRequest();
+        $arr = [
+            "origin_shop_id" => $origin_shop_id
+        ];
+        $uri = config('easyimdada.uri.shop.detail');
+        $params = json_encode($arr);
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
     }
 }

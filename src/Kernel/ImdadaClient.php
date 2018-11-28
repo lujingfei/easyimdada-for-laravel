@@ -1,10 +1,10 @@
 <?php
+
 namespace Geoff\EasyImdada\Kernel;
 
-use Geoff\EasyImdada\Data\DadaConstant;
-
-class DataRequestClient{
-    private $uri,$params;
+class ImdadaClient
+{
+    private $uri, $params;
 
     public function __construct($uri, $params)
     {
@@ -16,17 +16,18 @@ class DataRequestClient{
      * 请求调用api
      * @return
      */
-    public function makeRequest(){
+    public function request()
+    {
         $reqParams = $this->bulidRequestParams();
-        $response = $this->getHttpRequestWithPost($this->getUri(), json_encode($reqParams));
-        return $this->parseResponseData($response);
+        return $this->post($this->getUri(), json_encode($reqParams));
     }
 
     /**
      * 构造请求数据
      * data:业务参数，json字符串
      */
-    public function bulidRequestParams(){
+    public function bulidRequestParams()
+    {
         $app_key = config('easyimdada.app_key');
         $format = config('easyimdada.format');
         $version = config('easyimdada.v');
@@ -46,7 +47,8 @@ class DataRequestClient{
     /**
      * 签名生成signature
      */
-    public function _sign($data){
+    public function _sign($data)
+    {
 
         $app_secret = config('easyimdada.app_secret');
 
@@ -56,7 +58,7 @@ class DataRequestClient{
         //2.字符串拼接
         $args = "";
         foreach ($data as $key => $value) {
-            $args.=$key.$value;
+            $args .= $key . $value;
         }
         $args = $app_secret . $args . $app_secret;
         //3.MD5签名,转为大写
@@ -70,14 +72,16 @@ class DataRequestClient{
      * @param $url指定URL完整路径地址
      * @param $data请求的数据
      */
-    public function getHttpRequestWithPost($uri, $data){
+    public function post($uri, $data)
+    {
 
         $url = config('easyimdada.host') . $uri;
 
         // json
-        $headers = array(
+        $headers = [
             'Content-Type: application/json',
-        );
+        ];
+
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, false);
@@ -87,41 +91,21 @@ class DataRequestClient{
         curl_setopt($curl, CURLOPT_TIMEOUT, 3);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $resp = curl_exec($curl);
-        //var_dump( curl_error($curl) );//如果在执行curl的过程中出现异常，可以打开此开关查看异常内容。
         $info = curl_getinfo($curl);
         curl_close($curl);
         if (isset($info['http_code']) && $info['http_code'] == 200) {
-            return $resp;
+            return json_decode($resp);
         }
-        return '';
+        return json_decode('{"code":-1,"status":"fail","msg":"请求失败"}');
     }
 
-    /**
-     * 解析响应数据
-     * @param $arr返回的数据
-     * 响应数据格式：{"status":"success","result":{},"code":0,"msg":"成功"}
-     */
-    public function parseResponseData($arr){
-        $resp = new DataResponse();
-        if (empty($arr)) {
-            $resp->setStatus(DadaConstant::FAIL);
-            $resp->setMsg(DadaConstant::FAIL_MSG);
-            $resp->setCode(DadaConstant::FAIL_CODE);
-        }else{
-            $data = json_decode($arr, true);
-            $resp->setStatus($data['status']);
-            $resp->setMsg($data['msg']);
-            $resp->setCode($data['code']);
-            $resp->setResult($data['result']);
-        }
-        return $resp;
-    }
-
-    public function getUri(){
+    public function getUri()
+    {
         return $this->uri;
     }
 
-    public function getParams(){
+    public function getParams()
+    {
         return $this->params;
     }
 }

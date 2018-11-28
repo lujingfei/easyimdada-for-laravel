@@ -1,20 +1,43 @@
 <?php
 namespace Geoff\EasyImdada;
 
-use Geoff\EasyImdada\Data\UriConfig;
-use Geoff\EasyImdada\Kernel\DataRequestClient;
+use Geoff\EasyImdada\Kernel\ImdadaClient;
 
 class Order{
 
     public function addOrder($params){
-        $uri = UriConfig::ORDER_ADD_URI;
-        $dada_client = new DataRequestClient($uri, $params);
-        return $dada_client->makeRequest();
+        $uri = config('easyimdada.uri.order.addOrder');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
     }
 
     public function reAddOrder($params){
-        $uri = UriConfig::ORDER_ADD_URI;
-        $dada_client = new DataRequestClient($uri, $params);
-        return $dada_client->makeRequest();
+        $uri = config('easyimdada.uri.order.reAddOrder');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
+    }
+
+    public function accept($order_id){
+        $params_array = ['order_id' => $order_id];
+        $params = \GuzzleHttp\json_encode($params_array);
+        $uri = config('easyimdada.uri.order.accept');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
+    }
+
+    public function fetch($order_id){
+        $params_array = ['order_id' => $order_id];
+        $params = \GuzzleHttp\json_encode($params_array);
+        $uri = config('easyimdada.uri.order.fetch');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
+    }
+
+    public function finish($order_id){
+        $params_array = ['order_id' => $order_id];
+        $params = \GuzzleHttp\json_encode($params_array);
+        $uri = config('easyimdada.uri.order.finish');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
     }
 }

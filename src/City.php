@@ -1,14 +1,13 @@
 <?php
 namespace Geoff\EasyImdada;
 
-use Geoff\EasyImdada\Kernel\DataRequestClient;
-use Geoff\EasyImdada\Data\UriConfig;
+use Geoff\EasyImdada\Kernel\ImdadaClient;
 
 class City{
     public function list(){
-        $uri = UriConfig::CITY_ORDER_URI;
+        $uri = config('easyimdada.uri.city.list');
         $params = '';
-        $dada_client = new DataRequestClient($uri, $params);
-        return $dada_client->makeRequest();
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
     }
 }
