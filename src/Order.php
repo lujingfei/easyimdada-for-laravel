@@ -56,4 +56,28 @@ class Order
         $client = new ImdadaClient($uri, $params);
         return $client->request();
     }
+
+    public function cancel($order_id, $cancel_reason_id, $cancel_reason)
+    {
+        $params_array = ['order_id' => $order_id, 'cancel_reason_id' => $cancel_reason_id, 'cancel_reason' => $cancel_reason];
+        $params = json_encode($params_array);
+        $uri = config('easyimdada.uri.order.cancel');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
+    }
+
+    public function cancelReasons(){
+        $params = '';
+        $uri = config('easyimdada.uri.order.cancelReasons');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
+    }
+
+    public function confirm($order_id){
+        $params_array = ['order_id' => $order_id];
+        $params = json_encode($params_array);
+        $uri = config('easyimdada.uri.order.confirm');
+        $client = new ImdadaClient($uri, $params);
+        return $client->request();
+    }
 }
